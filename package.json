@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev:styles": "bunx tailwindcss -i resources/css/index.css -o resources/dist/filament-rounded-size-visualizer.css --postcss --watch",
+        "dev:scripts": "bun bin/build.js --dev",
+        "build:styles": "bunx tailwindcss -i resources/css/index.css -o resources/dist/filament-rounded-size-visualizer.css --postcss --minify && bun run purge",
+        "build:scripts": "bun bin/build.js",
+        "dev": "npm-run-all --parallel dev:*",
+        "build": "npm-run-all build:*",
+        "purge": "filament-purge -i resources/dist/filament-rounded-size-visualizer.css -o resources/dist/filament-rounded-size-visualizer.css -v 3.x"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@awcodes/filament-plugin-purge": "^1.1.2",
+        "@tailwindcss/forms": "^0.5.8",
+        "@tailwindcss/typography": "^0.5.15",
+        "autoprefixer": "^10.4.20",
+        "cssnano": "^7.0.6",
+        "esbuild": "^0.23.1",
+        "fabric": "^6.4.1",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.41",
+        "postcss-import": "^16.1.0",
+        "postcss-nested": "^6.2.0",
+        "postcss-nesting": "^13.0.0",
+        "prettier": "^3.3.3",
+        "prettier-plugin-blade": "^2.1.19",
+        "prettier-plugin-tailwindcss": "^0.6.6",
+        "tailwindcss": "^3.4.10",
+        "vite": "^5.4.3"
+    }
+}

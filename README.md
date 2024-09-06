@@ -5,6 +5,7 @@
 
 This repository contains a custom size visualizer component for FilamentPHP. It dynamically renders and resizes a visual comparison between a selected product size and a static object (e.g., a coin) on an interactive grid
 
+![](docs/example.png)   
 
 ## Installation
 

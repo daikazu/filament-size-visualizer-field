@@ -78,7 +78,22 @@ public function getFormSchema(): array
 | `patternGridColor`   | `string`  | Color used in the pattern overlay.               | `rgba(100, 100, 255, .50)` |
 | `showStaticObject`   | `boolean` | Whether to show the static object on the canvas. | `true`                     |
 
+## Style Customization
 
+You style the canvas wrapper by targeting the `.filament-size-visualizer` class.
+
+
+Example:
+```css
+
+.filament-size-visualizer {
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: clip;
+}
+
+```
 
 
 ## Changelog

@@ -11,7 +11,6 @@
     :hint-icon="$getHintIcon()"
     :required="$isRequired()"
     :state-path="$getStatePath()"
-    style="margin-bottom:50px"
 
 >
     <div

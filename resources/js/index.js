@@ -2,22 +2,22 @@ import {Canvas, Circle, Group, Image as FabricImage, Line, Pattern, Rect, Text} 
 
 
 export default function roundedSizeVisualizer({
-                                           element,
-                                           state,
-                                           size,
-                                           sizeText,
-                                           padding,
-                                           dynamicObjectImage,
-                                           staticObjectSize,
-                                           staticObjectImage,
-                                           fontFamily,
-                                           backgroundColor,
-                                           gridLineColor,
-                                           halfGridLineColor,
-                                           patternGridColor,
-                                           showStaticObject
+                                                  element,
+                                                  state,
+                                                  size,
+                                                  sizeText,
+                                                  padding,
+                                                  dynamicObjectImage,
+                                                  staticObjectSize,
+                                                  staticObjectImage,
+                                                  fontFamily,
+                                                  backgroundColor,
+                                                  gridLineColor,
+                                                  halfGridLineColor,
+                                                  patternGridColor,
+                                                  showStaticObject
 
-                                       }) {
+                                              }) {
     return {
         element,
         state,
@@ -61,12 +61,29 @@ export default function roundedSizeVisualizer({
             this.resizeObserver.observe(this.canvasWrapper);
 
 
+            // a global event listener to redraw the canvas as needed
+            window.addEventListener('resize-size-visualizer', () => {
+                    this.handleResize();
+                }
+            );
+
+            // a global event listener to dispose the fabricjs canvas
+            window.addEventListener('dispose-size-visualizer', () => {
+                    this.destroy();
+                }
+            );
+
+
+
         },
         destroy() {
             // Stop observing the canvasWrapper when the component is destroyed
             if (this.resizeObserver) {
                 this.resizeObserver.disconnect();
             }
+
+            this.canvas.dispose();
+
         },
         updateCanvasSize() {
             this.canvasSize = this.size;

@@ -141,6 +141,8 @@ export default function roundedSizeVisualizer({
             const gridRectangle = new Rect({
                 left: this.padding, // Align with the left edge of the grid
                 top: this.padding, // Align with the top edge of the grid
+                originX: 'left', // fabric v6+ defaults to center; anchor by top-left corner
+                originY: 'top',
                 width: this.size - 2 * this.padding, // Width to cover the grid area
                 height: this.size - 2 * this.padding, // Height to cover the grid area
                 stroke: '#999', // Border color of the rectangle
@@ -211,10 +213,12 @@ export default function roundedSizeVisualizer({
                     img.scaleToWidth(dynamicObjectDiameter);
                     img.scaleToHeight(dynamicObjectDiameter);
 
-                    // Position the image in the bottom left corner
+                    // Position the image so its bottom-left sits on the grid origin
                     img.set({
-                        left: this.padding, // Align with the left edge of the canvas
-                        top: this.canvasSize - this.padding - dynamicObjectDiameter, // Bottom left position
+                        left: this.padding, // Align with the left edge of the grid
+                        top: this.canvasSize - this.padding - dynamicObjectDiameter, // Bottom-left anchor
+                        originX: 'left', // fabric v6+ defaults to center; anchor by top-left corner
+                        originY: 'top',
                         selectable: false, // Disable selection
                         shadow: {
                             color: 'rgba(0, 0, 0, 0.25)', // Shadow color with transparency
@@ -261,10 +265,12 @@ export default function roundedSizeVisualizer({
                                 staticImg.scaleToWidth(staticObjectDiameter);
                                 staticImg.scaleToHeight(staticObjectDiameter);
 
-                                // Position the image in the bottom left corner
+                                // Position the coin so its bottom-left sits on the grid origin
                                 staticImg.set({
-                                    left: this.padding + 4, // Align with the left edge of the canvas
-                                    top: this.canvasSize - this.padding - staticObjectDiameter, // Bottom left position
+                                    left: this.padding + 4, // Align with the left edge of the grid
+                                    top: this.canvasSize - this.padding - staticObjectDiameter, // Bottom-left anchor
+                                    originX: 'left', // fabric v6+ defaults to center; anchor by top-left corner
+                                    originY: 'top',
                                     selectable: false, // Disable selection
                                     shadow: {
                                         color: 'rgba(0, 0, 0, 0.5)', // Shadow color with transparency
@@ -309,8 +315,10 @@ export default function roundedSizeVisualizer({
             // const rectangleWidth = this.canvasSize - padding - productCenterX;
             // Create the rectangle
             const rectangle = new Rect({
-                left: productCenterX, // Start from the center of the product
+                left: productCenterX, // Align with the left edge of the grid
                 top: productBottomY - dynamicObjectDiameter, // Align with the top of the product
+                originX: 'left', // fabric v6+ defaults to center; anchor by top-left corner
+                originY: 'top',
                 width: dynamicObjectDiameter, // Width extending to the right side of the grid
                 height: dynamicObjectDiameter, // Height matching the product's height
                 fill: pattern, // Optional: Fill color with transparency

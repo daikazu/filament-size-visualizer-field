@@ -1,4 +1,4 @@
-import {Canvas, Circle, Group, Image as FabricImage, Line, Pattern, Rect, Text} from 'fabric';
+import {Canvas, Circle, FabricImage, FabricText as Text, Group, Line, Pattern, Rect} from 'fabric';
 
 
 export default function roundedSizeVisualizer({
@@ -93,9 +93,8 @@ export default function roundedSizeVisualizer({
             const wrapperWidth = this.canvasWrapper.offsetWidth; // Get the wrapper's width
             const scaleFactor = wrapperWidth / this.canvasSize; // Calculate scale factor based on wrapper width and original canvas size
 
-            // Set new canvas dimensions
-            this.canvas.setWidth(wrapperWidth);
-            this.canvas.setHeight(wrapperWidth); // Maintain aspect ratio (assuming square)
+            // Set new canvas dimensions (square — width and height match)
+            this.canvas.setDimensions({width: wrapperWidth, height: wrapperWidth});
 
             // Scale the entire canvas using setZoom() for proportional resizing
             this.canvas.setZoom(scaleFactor);
@@ -206,40 +205,7 @@ export default function roundedSizeVisualizer({
             }
 
 
-            let staticImage;
-
-            if (this.showStaticObject) {
-
-                FabricImage.fromURL(this.staticObjectImage, (staticImg) => {
-                })
-                    .then((staticImg) => {
-
-                        staticImg.scaleToWidth(staticObjectDiameter);
-                        staticImg.scaleToHeight(staticObjectDiameter);
-
-                        // Position the image in the bottom left corner
-                        staticImg.set({
-                            left: this.padding + 4, // Align with the left edge of the canvas
-                            top: this.canvasSize - this.padding - staticObjectDiameter, // Bottom left position
-                            selectable: false, // Disable selection
-                            shadow: {
-                                color: 'rgba(0, 0, 0, 0.5)', // Shadow color with transparency
-                                blur: 10, // Blur effect
-                                offsetX: 5, // Horizontal offset
-                                offsetY: 5, // Vertical offset
-                            },
-                        });
-
-                        staticImage = staticImg;
-                        // this.canvas.add(staticImg);
-                    });
-
-            }
-
-
-            FabricImage.fromURL(this.dynamicObjectImage, (staticImg) => {
-            })
-
+            FabricImage.fromURL(this.dynamicObjectImage)
                 .then((img) => {
                     // Scale the image to match the product size
                     img.scaleToWidth(dynamicObjectDiameter);
@@ -285,11 +251,35 @@ export default function roundedSizeVisualizer({
 
                     this.canvas.add(img);
 
-                    if (staticImage) {
-                        this.canvas.add(staticImage);
+                    // Load and add the static scale object (coin) here — on top of the
+                    // product — so it always renders regardless of which image resolves
+                    // first. Previously the coin was added inside this callback only if a
+                    // separate promise had already resolved, which raced and often lost.
+                    if (this.showStaticObject) {
+                        FabricImage.fromURL(this.staticObjectImage)
+                            .then((staticImg) => {
+                                staticImg.scaleToWidth(staticObjectDiameter);
+                                staticImg.scaleToHeight(staticObjectDiameter);
+
+                                // Position the image in the bottom left corner
+                                staticImg.set({
+                                    left: this.padding + 4, // Align with the left edge of the canvas
+                                    top: this.canvasSize - this.padding - staticObjectDiameter, // Bottom left position
+                                    selectable: false, // Disable selection
+                                    shadow: {
+                                        color: 'rgba(0, 0, 0, 0.5)', // Shadow color with transparency
+                                        blur: 10, // Blur effect
+                                        offsetX: 5, // Horizontal offset
+                                        offsetY: 5, // Vertical offset
+                                    },
+                                });
+
+                                this.canvas.add(staticImg);
+                                this.canvas.renderAll();
+                            });
                     }
 
-
+                    this.canvas.renderAll();
                 });
 
 

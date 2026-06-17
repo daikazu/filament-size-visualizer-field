@@ -24,7 +24,7 @@ class RoundedSizeVisualizer extends Field
     protected string|Closure|null $sizeText = 'Inches';
 
 
-    public static function make(string $name): static
+    public static function make(?string $name = null): static
     {
         $static = parent::make($name);
 

@@ -95,6 +95,20 @@ Example:
 
 ```
 
+## JavaScript Events
+
+The field listens for two `window` events so you can drive it from your own code:
+
+| Event                      | Effect                                                                                             |
+|----------------------------|----------------------------------------------------------------------------------------------------|
+| `resize-size-visualizer`   | Re-fits the canvas to its container. Dispatch it after the field becomes visible (e.g. a tab/modal opens) or its width changes. |
+| `dispose-size-visualizer`  | Tears down the canvas, observers, and listeners. Dispatch it before removing the field from the page (e.g. when closing a modal in a long-lived SPA) to release resources. |
+
+```js
+window.dispatchEvent(new Event('resize-size-visualizer'));
+window.dispatchEvent(new Event('dispose-size-visualizer'));
+```
+
 
 ## Changelog
 

@@ -1,1 +1,1 @@
-.filament-size-visualizer{height:auto;position:relative;width:100%}.filament-size-visualizer canvas{display:block;height:100%;inset:0;position:absolute;width:100%}
+.filament-size-visualizer{width:100%;height:auto;position:relative}.filament-size-visualizer canvas{width:100%;height:100%;display:block;position:absolute;inset:0}

@@ -11,7 +11,6 @@ class RoundedSizeVisualizer extends Field
     protected string $view = 'filament-size-visualizer-field::components.size-visualizer';
     protected int|Closure|null $size = 1080;
     protected int|Closure|null $padding = 50;
-    protected float|int|Closure|null $dynamicObjectSize = 2.5;
     protected string|Closure|null $dynamicObjectImage = 'images/product-image-2.png';
     protected float|int|Closure|null $staticObjectSize = 0.955;
     protected string|Closure|null $staticObjectImage = 'images/quarter-image.png';
@@ -67,18 +66,6 @@ class RoundedSizeVisualizer extends Field
     public function getPadding(): int|Htmlable|null
     {
         return $this->evaluate($this->padding);
-    }
-
-    public function dynamicObjectSize(float|int|Closure $dynamicObjectSize): static
-    {
-        $this->dynamicObjectSize = $dynamicObjectSize;
-
-        return $this;
-    }
-
-    public function getDynamicObjectSize(): float|int|null
-    {
-        return $this->evaluate($this->dynamicObjectSize);
     }
 
     public function dynamicObjectImage(string|Closure $dynamicObjectImage): static
